@@ -1,4 +1,7 @@
 import "./App.css";
+import Search from "./components/Search";
+import List from "./components/List";
+import React from "react";
 
 let arr = [
   {
@@ -22,21 +25,46 @@ let arr = [
     points: 9,
     objectId: 2,
   },
+  {
+    title: "angumentor",
+    url: "https://angular.org/",
+    num_comments: 49,
+    points: 9,
+    objectId: 3,
+  },
+  {
+    title: "vuerecreaator",
+    url: "https://angular.org/",
+    num_comments: 49,
+    points: 9,
+    objectId: 4,
+  },
+  {
+    title: "aninicanicos",
+    url: "https://angular.org/",
+    num_comments: 49,
+    points: 9,
+    objectId: 5,
+  },
 ];
 
 function App() {
-  console.log("udalo sie");
+  const [searchTerm, setSearchTerm] = React.useState("react");
+
+  const handleSearch = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const searchedStories = arr.filter((story) => {
+    return story.title.toLowerCase().includes(searchTerm.toLocaleLowerCase());
+  });
+
   return (
     <div>
       <ul>
-        {arr.map((item) => {
-          return (
-            <li key={item.objectId}>
-              {item.title} {item.url}
-            </li>
-          );
-        })}
+        <List list={searchedStories} />
       </ul>
+      <Search search={searchTerm} onSearch={handleSearch} />
     </div>
   );
 }
